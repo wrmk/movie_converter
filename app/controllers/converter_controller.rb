@@ -1,10 +1,9 @@
 class ConverterController < ApplicationController
   def index
-    @movie = Movie.where(id: 1)
+    @movie = Movie.find(1)
   end
   def create
     movie = Movie.create movie_params
-    # movie.file.attach(params[:file])
   end
 
   private
