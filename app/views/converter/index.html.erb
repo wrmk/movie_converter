@@ -1,1 +1,6 @@
-dsf
+<%= form_with do |form| %>
+  <%= form.file_field :file%>
+  <%= form.submit "Загрузить" %>
+<% end %>
+
+<%= @movie.file %>
