@@ -1,8 +1,14 @@
-<%= form_with do |form| %>
-  <%= form.file_field :file, accept:"video/mp4", onchange:"getDuration(this)"%>
-  <%= form.submit "Загрузить" %>
-<% end %>
-<%= @movie.file%>
+
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+  <img src="<%= url_for(@gif) %>" width="500" />
+  <%= form_with do |form| %>
+    <%= form.file_field :file,
+      accept:"video/mp4",
+      onchange:"getDuration(this)"%>
+    <%= form.submit "Загрузить" %>
+  <% end %>
+</div>
+
 
 
 <script>

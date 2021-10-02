@@ -1,9 +1,22 @@
 class ConverterController < ApplicationController
+  require 'streamio-ffmpeg'
   def index
-    @movie = Movie.find(1)
+    if Movie.find_by(id: 1)
+      @gif = Movie.find(1).file
+    end
   end
   def create
-    movie = Movie.create movie_params
+    if movie = Movie.find_by(id: 1)
+      movie.file.attach(params[:file])
+    else
+      movie = Movie.create movie_params
+    end
+    movie.file.open do |file|
+      path = "tmp/file.gif"
+      video = FFMPEG::Movie.new(file.path)
+      video.transcode(path,frame_rate: '10')
+      movie.file.attach(io: File.open(path),filename: "file.gif")
+    end
   end
 
   private
