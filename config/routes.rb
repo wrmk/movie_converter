@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 root 'converter#index'
-post '/', to: 'converter#create'
+post '/', to: 'converter#upload'
 end

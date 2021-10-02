@@ -1,11 +1,10 @@
 class ConverterController < ApplicationController
   require 'streamio-ffmpeg'
+
   def index
-    if Movie.find_by(id: 1)
-      @gif = Movie.find(1).file
-    end
   end
-  def create
+  
+  def upload
     if movie = Movie.find_by(id: 1)
       movie.file.attach(params[:file])
     else
@@ -17,6 +16,11 @@ class ConverterController < ApplicationController
       video.transcode(path,frame_rate: '10')
       movie.file.attach(io: File.open(path),filename: "file.gif")
     end
+    @gif = movie.file
+    respond_to do |format|
+      format.html {render "index"}
+      format.js
+    end    
   end
 
   private
