@@ -1,5 +1,22 @@
 <%= form_with do |form| %>
-  <%= form.file_field :file%>
+  <%= form.file_field :file, accept:"video/mp4", onchange:"getDuration(this)"%>
   <%= form.submit "Загрузить" %>
 <% end %>
 <%= @movie.file%>
+
+
+<script>
+    // window.URL = window.URL || window.webkitURL;
+    function getDuration(input) {
+        var video = document.createElement('video');
+        video.preload = 'metadata';
+        video.onloadedmetadata = function () {
+            // window.URL.revokeObjectURL(video.src);
+            if (video.duration > 60){
+              alert("Выберите видеофайл длительностью не более 1 минуты");
+              input.value = '';
+            }
+        }
+        video.src = URL.createObjectURL(input.files[0]);
+    }
+</script>
