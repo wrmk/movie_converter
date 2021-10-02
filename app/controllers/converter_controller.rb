@@ -3,7 +3,7 @@ class ConverterController < ApplicationController
 
   def index
   end
-  
+
   def upload
     if movie = Movie.find_by(id: 1)
       movie.file.attach(params[:file])
