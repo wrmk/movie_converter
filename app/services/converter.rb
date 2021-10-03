@@ -1,4 +1,4 @@
-module Converter
+class Converter
   require 'streamio-ffmpeg'
 
   def convert(movie_path,gif_path)
