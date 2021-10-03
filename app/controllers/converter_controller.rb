@@ -1,21 +1,21 @@
 class ConverterController < ApplicationController
 
   def upload
-    @gif_name = SecureRandom.alphanumeric(12)
-    gif_path = "app/assets/images/#{@gif_name}.gif"
-    ConvertVideoJob.perform_later(params[:movie].path, gif_path)
-    # show_gif
-  end
 
-  def show_gif
+    @storage = Storage.create storage_params
+    # @storage.media.attach(params[:media])
+
+    Converter.new.convert(@storage.media)
+
+    # ConvertVideoJob.perform_later(movie.path, gif_path)
     respond_to do |format|
       format.html {render "index"}
       format.js
-    end     
+    end
   end
 
   private
-    def movie_params
-      params.permit(:movie)
+    def storage_params
+      params.permit(:media)
     end
 end

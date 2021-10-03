@@ -4,7 +4,7 @@
     <p>Конвертируем в gif...</p>
   </div>
   <%= form_with local: false do |form| %>
-    <%= form.file_field :movie,
+    <%= form.file_field :media,
       accept:"video/mp4",
       onchange:"getDuration(this)"%>
     <%= form.submit "Загрузить" %>
