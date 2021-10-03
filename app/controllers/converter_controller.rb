@@ -1,14 +1,10 @@
 class ConverterController < ApplicationController
-  require 'streamio-ffmpeg'
-
-  def index
-  end
+  include Converter
 
   def upload
-    @gif_path = "app/assets/images/file.gif"
-    video = FFMPEG::Movie.new(params[:file].path)
-    options = {frame_rate: '5'}
-    video.transcode(@gif_path, options)
+    @gif_name = SecureRandom.alphanumeric(12)
+    gif_path = "app/assets/images/#{@gif_name}.gif"
+    convert(params[:movie].path, gif_path)
     respond_to do |format|
       format.html {render "index"}
       format.js
@@ -17,6 +13,6 @@ class ConverterController < ApplicationController
 
   private
     def movie_params
-      params.permit(:file)
+      params.permit(:movie)
     end
 end
