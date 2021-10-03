@@ -5,18 +5,10 @@ class ConverterController < ApplicationController
   end
 
   def upload
-    if movie = Movie.find_by(id: 1)
-      movie.file.attach(params[:file])
-    else
-      movie = Movie.create movie_params
-    end
-    movie.file.open do |file|
-      path = "tmp/file.gif"
-      video = FFMPEG::Movie.new(file.path)
-      video.transcode(path,frame_rate: '10')
-      movie.file.attach(io: File.open(path),filename: "file.gif")
-    end
-    @gif = movie.file
+    @gif_path = "app/assets/images/file.gif"
+    video = FFMPEG::Movie.new(params[:file].path)
+    options = {frame_rate: '5'}
+    video.transcode(@gif_path, options)
     respond_to do |format|
       format.html {render "index"}
       format.js

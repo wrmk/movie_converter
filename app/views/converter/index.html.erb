@@ -13,17 +13,15 @@
 
 
 <script>
-    // window.URL = window.URL || window.webkitURL;
-    function getDuration(input) {
-        var video = document.createElement('video');
-        video.preload = 'metadata';
-        video.onloadedmetadata = function () {
-            // window.URL.revokeObjectURL(video.src);
-            if (video.duration > 60){
-              alert("Выберите видеофайл длительностью не более 1 минуты");
-              input.value = '';
-            }
-        }
-        video.src = URL.createObjectURL(input.files[0]);
-    }
+  function getDuration(input) {
+      var video = document.createElement('video');
+      video.preload = 'metadata';
+      video.onloadedmetadata = function () {
+          if (video.duration > 60){
+            alert("Выберите видеофайл длительностью не более 1 минуты");
+            input.value = '';
+          }
+      }
+      video.src = URL.createObjectURL(input.files[0]);
+  }
 </script>
