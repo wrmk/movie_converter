@@ -1,7 +1,7 @@
 
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
   <div id="gif" style="display:none">
-    <p>Конвертируем ваше видео</p>
+    <p>Конвертируем в gif...</p>
   </div>
   <%= form_with local: false do |form| %>
     <%= form.file_field :movie,
@@ -26,7 +26,12 @@
     video.src = URL.createObjectURL(input.files[0]);
   };
 
-  $('form').submit(function status(){
+  $('form').submit(function () {
+    if(!$("form input[type=file]").val()) {
+       alert('Выберите файл');
+       return false;
+    };
     $('#gif').show();
-  })
+  });
+
 </script>
