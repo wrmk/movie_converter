@@ -7,7 +7,6 @@
     <%= form.file_field :media,
       accept:"video/mp4",
       onchange:"getDuration(this)"%>
-    <%= form.submit "Загрузить" %>
   <% end %>
 </div>
 
@@ -22,16 +21,12 @@
         alert("Выберите видеофайл длительностью не более 1 минуты");
         input.value = '';
       }
+      else {
+        form = document.querySelector('form');
+        Rails.fire(form, 'submit');
+        $('#gif').show();
+      }
     }
     video.src = URL.createObjectURL(input.files[0]);
   };
-
-  $('form').submit(function () {
-    if(!$("form input[type=file]").val()) {
-       alert('Выберите файл');
-       return false;
-    };
-    $('#gif').show();
-  });
-
 </script>
